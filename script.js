@@ -3,17 +3,20 @@ let serviceType = prompt("What type of service are you interested in? (Photograp
 let numberOfHours = prompt("How many hours of service do you require?");
 let travelRequired = prompt("Is Travel Required? (Yes or No)");
 
-let photographyRate;
-let videographyRate;
-let comboRate;
+let rate;
 
-if (serviceType === "Photography") {
-    photographyRate = 500; // Price per  hour
-} else if (serviceType === "Videography") {
-    videographyRate = 800; // Price per hour
-} else if (serviceType === "Both") {
-    comboRate = 1200 // Price per hour
-};
+const determineRate = function () {
+    if (serviceType === "Photography") {
+        rate = 500;
+    } else if (serviceType === "Videography") {
+        rate = 800;
+    } else if (serviceType === "Both") {
+        rate = 1200;
+    }
+    return rate;
+}
+
+const rate2 = determineRate()
 
 console.log("R4MZ MEDIA");
 console.log("Client Quotation");
@@ -24,37 +27,64 @@ console.log(`Hours Booked: ${numberOfHours}`);
 
 numberOfHours = Number(numberOfHours);
 
-let subtotal;
+let total;
 
-if (serviceType === "Photography") {
-    subtotal = numberOfHours * photographyRate;
-} else if (serviceType === "Videography") {
-    subtotal = numberOfHours * videographyRate;
-} else if (serviceType === "Both") {
-    subtotal = numberOfHours * comboRate;
+const calculateTotal = function (rate, numberOfHours) {
+    total = rate * numberOfHours;
+    console.log(`Subtotal: ${total}`);
 }
 
-console.log(`Subtotal: ${subtotal}`);
+calculateTotal(rate2, numberOfHours);
 
-let travelFee;
+let travelCost;
 
-if (travelRequired === "Yes") {
-    console.log('Travel Fee: R250')
-    travelFee = 250;
-} else if (travelRequired === "No") {
-    console.log('Travel Fee: 0');
-    travelFee = 0;
+const travelFee = function () {
+    if (travelRequired === "Yes") {
+        console.log('Travel Fee: R250')
+        travelCost = 250;
+    } else if (travelRequired === "No") {
+        console.log('Travel Fee: 0');
+        travelCost = 0;
+    }
 }
 
-let discount;
+travelFee();
 
-if (subtotal >= 3000) {
-    discount = subtotal * 0.10;
-} else {
-    discount = 0;
+let appliedDiscount;
+
+const discount = function () {
+    if (total >= 3000) {
+        appliedDiscount = total * 0.10;
+    } else {
+        appliedDiscount = 0;
+    }
 }
 
-console.log(`Final Total: ${subtotal + travelFee - discount}`);
+discount();
+
+const calculateTotal2 = function () {
+    if (total >= 3000) {
+        console.log(`Final Total: ${total + travelCost - appliedDiscount}`);
+    } else {
+        console.log(`Final Total: ${total + travelCost}`);
+    }
+}
+
+calculateTotal2();
+
+console.log('Business performance:');
+
+const performance = function () {
+    if (total > 3000) {
+        console.log("Slow day");
+    } else if (total > 3000 & total == 6000) {
+        console.log("Good Day");
+    } else if (total > 6000) {
+        console.log("Excellent Day");
+    }
+}
+
+performance();
 
 
 
