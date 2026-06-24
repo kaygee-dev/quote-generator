@@ -1,10 +1,20 @@
+// User Prompts
 let clientName = prompt("What is your name?");
 let serviceType = prompt("What type of service are you interested in? (Photography, Videography, or Both?)");
 let numberOfHours = prompt("How many hours of service do you require?");
 let travelRequired = prompt("Is Travel Required? (Yes or No)");
 
+//Declare Variables
 let rate;
+let total;
+let travelCost;
+let grandTotal;
+let performanceType;
 
+// Prompt type conversion
+numberOfHours = Number(numberOfHours);
+
+// Functions created
 const determineRate = function () {
     if (serviceType === "Photography") {
         rate = 500;
@@ -16,41 +26,18 @@ const determineRate = function () {
     return rate;
 }
 
-const rate2 = determineRate()
-
-console.log("R4MZ MEDIA");
-console.log("Client Quotation");
-
-console.log(`Client Name: ${clientName}`);
-console.log(`Service: ${serviceType}`);
-console.log(`Hours Booked: ${numberOfHours}`);
-
-numberOfHours = Number(numberOfHours);
-
-let total;
-
 const calculateTotal = function (rate, numberOfHours) {
     total = rate * numberOfHours;
-    console.log(`Subtotal: ${total}`);
 }
-
-calculateTotal(rate2, numberOfHours);
-
-let travelCost;
 
 const travelFee = function () {
     if (travelRequired === "Yes") {
-        console.log('Travel Fee: R250')
         travelCost = 250;
     } else if (travelRequired === "No") {
-        console.log('Travel Fee: 0');
         travelCost = 0;
     }
+    return travelCost;
 }
-
-travelFee();
-
-let appliedDiscount;
 
 const discount = function () {
     if (total >= 3000) {
@@ -60,31 +47,39 @@ const discount = function () {
     }
 }
 
-discount();
-
 const calculateTotal2 = function () {
-    if (total >= 3000) {
-        console.log(`Final Total: ${total + travelCost - appliedDiscount}`);
-    } else {
-        console.log(`Final Total: ${total + travelCost}`);
-    }
+    return total + travelCost - appliedDiscount;
 }
-
-calculateTotal2();
-
-console.log('Business performance:');
 
 const performance = function () {
-    if (total > 3000) {
-        console.log("Slow day");
-    } else if (total > 3000 & total == 6000) {
-        console.log("Good Day");
+    if (total <= 3000) {
+        performanceType = "Slow day";
+    } else if (total > 3000 && total === 6000) {
+        performanceType = "Good day";
     } else if (total > 6000) {
-        console.log("Excellent Day");
+        performanceType = "Excellent day";
     }
 }
 
+// Call functions
+determineRate();
+calculateTotal(rate, numberOfHours);
+travelFee();
+discount();
+grandTotal = calculateTotal2();
 performance();
+
+// Log results
+console.log("R4MZ MEDIA");
+console.log("Client Quotation");
+console.log(`Client Name: ${clientName}`);
+console.log(`Service: ${serviceType}`);
+console.log(`Hours Booked: ${numberOfHours}`);
+console.log(`Travel fee: R${travelCost}`)
+console.log(`Subtotal: R${total}`);
+console.log(`Discount: - R${appliedDiscount}`);
+console.log(`grandTotal: R${grandTotal}`);
+console.log(`Business performance: ${performanceType}`);
 
 
 
